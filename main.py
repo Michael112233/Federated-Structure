@@ -1,7 +1,8 @@
 import time
 
 import numpy as np
-from algorithms import choose_algorithm
+
+from algorithms.utils import choose_algorithm
 from data_processing import data
 import model
 import meta_data as md

@@ -128,6 +128,7 @@ class data:
         if self.sampling_kind == 'iid':
             dict_index = self.iid_partition()
         elif self.sampling_kind == 'non-iid':
+            self.sort()
             dict_index = self.non_iid_partition()
         else:
             print("Partition Error")

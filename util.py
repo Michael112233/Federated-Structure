@@ -1,3 +1,6 @@
+from algorithms import FedAvg_SGD_ZO
+
+import meta_data as md
 
 def judge_whether_print(current_round):
     if current_round <= 10:
@@ -12,3 +15,4 @@ def judge_whether_print(current_round):
         return current_round % 200 == 0
     else:
         return current_round % 500 == 0
+

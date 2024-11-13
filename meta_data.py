@@ -1,6 +1,6 @@
 # about dataset
 dataset_name = 'mnist' # ''
-sampling_kind = 'iid' # iid and non-iid
+sampling_kind = 'non-iid' # iid and non-iid
 training_samples_ratio = 0.8
 
 # about structure
@@ -12,7 +12,7 @@ global_iter = 1000
 local_iter = 50
 
 # about model (logistic, svm, neural)
-model_name = 'neural'
+model_name = 'logistic'
 hidden_dim = 50
 
 # training
