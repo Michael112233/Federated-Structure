@@ -36,7 +36,7 @@ class FedProx(BaseAlgorithm):
             direction = np.random.randn(self.model.len(), 1)
             upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
             lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
-            grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
+            grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction + md.prox_val * (current_weight - original_weight)
             self.total_grad += 2 * md.batch_size
             eta = self.decay(md.eta, self.global_round)
             current_weight -= eta * grad

@@ -2,6 +2,7 @@ import time
 
 import numpy as np
 
+import util
 from algorithms.utils import choose_algorithm
 from data_processing import data
 import model
@@ -19,3 +20,6 @@ if __name__ == '__main__':
     algorithm = choose_algorithm(global_model, dataset, decay)
 
     algorithm.alg_run(start_time)
+
+    el = util.excel_solver(md.algorithm_name + ", prox_val=" + str(md.prox_val))
+    el.save_excel(algorithm)
