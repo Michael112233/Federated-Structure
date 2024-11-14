@@ -18,12 +18,12 @@ def isSparse(dataset_name):
 class data:
     def __init__(self):
         # meta_data
+        self.batch_size = md.batch_size
         self.dataset_name = md.dataset_name
         self.sampling_kind = md.sampling_kind
         self.client_num = md.client_num
         self.training_sample_ratio = md.training_samples_ratio
         self.model_name = md.model_name
-        self.batch_size = md.batch_size
         # dataset
         self.feature = None
         self.label = None
@@ -116,6 +116,11 @@ class data:
         feature_batch = self.train_feature[batch_indices]
         label_batch = self.train_label[batch_indices]
         return feature_batch, label_batch
+
+    def sample_client_data(self, chosen_index):
+        feature_data = self.train_feature[chosen_index]
+        label_data = self.train_label[chosen_index]
+        return feature_data, label_data
 
     #########################
     # for partition dataset #

@@ -2,6 +2,7 @@ import meta_data as md
 
 from algorithms.FedAvg_SGD_ZO import FedAvg_SGD_ZO
 from algorithms.FedProx import FedProx
+from algorithms.Scaffold import Scaffold
 
 
 # ********************
@@ -12,6 +13,8 @@ def choose_algorithm(model, dataset, decay):
         return FedAvg_SGD_ZO(model, dataset, decay)
     elif md.algorithm_name == 'FedProx':
         return FedProx(model, dataset, decay)
+    elif md.algorithm_name == 'Scaffold':
+        return Scaffold(model, dataset, decay)
     else:
         print("The algorithm is not defined")
         exit(0)
