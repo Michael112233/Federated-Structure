@@ -62,6 +62,11 @@ class logistic(model):
         loss = (-1 / len(y)) * np.sum(y * np.log(y_hat) + (1 - y) * np.log(y_hat_bar))
         return loss
 
+    def grad(self, w, x, y):
+        y_hat = self.predict(w, x)
+        grad = (1 / len(y)) * x.T.dot(y_hat - y)
+        return grad
+
 
 class svm(model):
     def __init__(self, length):
@@ -77,12 +82,18 @@ class svm(model):
         loss = np.mean(np.maximum(0.0, 1 - y * y_hat) ** 2) / 2
         return loss
 
+    def grad(self, w, x, y):
+        y_hat = self.predict(w, x)
+        dw = -(1 / len(w)) * x.T.dot(np.maximum(0.0, 1 - y * y_hat) * y)
+        return dw
+
     def acc(self, w, x, y):
         y_hat = np.sign(self.predict(w, x))
         corrent_array = y_hat - y
         corrent_index = np.where(corrent_array == 0)
         accuracy = len(corrent_index[0]) / len(y)
         return accuracy * 100
+
 
 
 class neural_network(model):

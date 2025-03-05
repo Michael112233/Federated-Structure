@@ -1,0 +1,4 @@
+dataset/cifar10/cifar10.mat
+dataset/fashion_mnist/fashion-mnist_train.csv
+dataset/mnist/mnist.mat
+dataset/rcv1/rcv1_test.binary

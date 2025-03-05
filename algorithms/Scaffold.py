@@ -1,11 +1,10 @@
 import random
 import copy
-import time
 
 import numpy as np
-import meta_data as md
+from src import meta_data as md
 from .BaseAlgorithm import BaseAlgorithm
-from util import judge_whether_print
+from src.util import judge_whether_print
 
 class Scaffold(BaseAlgorithm):
     def __init__(self, model, dataset, decay):
@@ -34,10 +33,11 @@ class Scaffold(BaseAlgorithm):
                 self.save_info(start_time)
 
     def get_grad(self, current_weight, sample_feature, sample_label):
-        direction = np.random.randn(self.model.len(), 1)
-        upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
-        lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
-        grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
+        # direction = np.random.randn(self.model.len(), 1)
+        # upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
+        # lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
+        # grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
+        grad = self.model.grad(current_weight, sample_feature, sample_label)
         return grad
 
     def update_client(self, client_index, current_weight, chosen_index):
@@ -58,6 +58,8 @@ class Scaffold(BaseAlgorithm):
         elif md.scaffold_kind == 1:
             new_variate = original_variate - self.server_variate + (original_weight - current_weight) / (md.local_iter * eta)
             self.client_variate[client_index] = new_variate.squeeze()
+        else:
+            exit('Error: Scaffold kind is null.')
 
         self.client_variate_difference += new_variate - original_variate
 

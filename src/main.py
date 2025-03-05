@@ -1,7 +1,5 @@
 import time
 
-import numpy as np
-
 import util
 from algorithms.utils import choose_algorithm
 from data_processing import data
@@ -21,5 +19,5 @@ if __name__ == '__main__':
 
     algorithm.alg_run(start_time)
 
-    el = util.excel_solver(md.algorithm_name + ", prox_val=" + str(md.prox_val))
+    el = util.excel_solver(util.generate_filename())
     el.save_excel(algorithm)

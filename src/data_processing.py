@@ -62,7 +62,7 @@ class data:
 
     def load_sparse_dataset(self):
         if self.dataset_name == 'rcv1':
-            feature, label = load_svmlight_file('../data/rcv1/rcv1_test.binary')
+            feature, label = load_svmlight_file('../dataset/rcv1/rcv1_test.binary')
             label = label.reshape(-1, 1)
             if self.model_name == 'logistic' or self.dataset_name == 'neural':
                 label = (label + 1) / 2
@@ -86,7 +86,7 @@ class data:
 
     def load_dense_dataset(self):
         if self.dataset_name == 'mnist':
-            mnist_data = sio.loadmat('./dataset/mnist/mnist.mat')
+            mnist_data = sio.loadmat('../dataset/mnist/mnist.mat')
             feature = mnist_data['Z']
             label = mnist_data['y']
             label = (label.astype(int) >= 5) * 1
@@ -94,7 +94,7 @@ class data:
                 label = label * 2 - 1
         elif self.dataset_name == 'cifar10':
             cifar_data = sio.loadmat("../dataset/cifar10/cifar10.mat")
-            feature = cifar_data['data']
+            feature = cifar_data['dataset']
             label = cifar_data['labels']
             label = (label.astype(int) >= 5) * 1
             if self.model_name == 'svm':

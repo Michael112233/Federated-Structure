@@ -29,9 +29,9 @@ def mkdir(path):
 
 class excel_solver:
     def __init__(self, file_path_import=""):
-        file_path = "./performance/excel/"
-        mkdir("./performance")
-        mkdir("./performance/excel/")
+        file_path = ""
+        mkdir("../performance")
+        mkdir("../performance/excel/")
         file_name = str(time.strftime('%Y-%m-%d-%H-%M-%S')) + ".csv"
         if file_path_import == "":
             self.file_path = file_path + file_name
@@ -47,3 +47,18 @@ class excel_solver:
              'current_loss': current_loss})
         dataframe.to_csv(self.file_path, index=True)
 
+def generate_filename():
+    mkdir('../performance/excel/{}'.format(md.algorithm_name))
+    mkdir('../performance/excel/{}/{}'.format(md.algorithm_name, md.dataset_name))
+    mkdir('../performance/excel/{}/{}/{}'.format(md.algorithm_name, md.dataset_name, md.model_name))
+    mkdir('../performance/excel/{}/{}/{}/{}'.format(md.algorithm_name, md.dataset_name, md.model_name, md.sampling_kind))
+    mkdir('../performance/excel/{}/{}/{}/{}/eta={}'.format(md.algorithm_name, md.dataset_name, md.model_name, md.sampling_kind, md.eta))
+    filepath = '../performance/excel/{}/{}/{}/{}/eta={}/'.format(md.algorithm_name, md.dataset_name, md.model_name, md.sampling_kind, md.eta)
+    if md.algorithm_name == 'FedProx':
+        filepath += 'prox_val={}/'.format(md.prox_val)
+        mkdir(filepath)
+    elif md.algorithm_name == 'Scaffold':
+        filepath += 'Scaffold_kind={}/'.format(md.scaffold_kind)
+        mkdir(filepath)
+    filename = filepath + str(time.strftime('%Y-%m-%d-%H-%M-%S')) + ".csv"
+    return filename

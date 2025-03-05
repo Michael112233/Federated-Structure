@@ -1,11 +1,10 @@
 import random
 import copy
-import time
 
 import numpy as np
-import meta_data as md
+from src import meta_data as md
 from .BaseAlgorithm import BaseAlgorithm
-from util import judge_whether_print
+from src.util import judge_whether_print
 
 class FedProx(BaseAlgorithm):
     def __init__(self, model, dataset, decay):
@@ -33,10 +32,8 @@ class FedProx(BaseAlgorithm):
         original_weight = copy.deepcopy(current_weight)
         for i in range(md.local_iter):
             sample_feature, sample_label = self.dataset.sample(chosen_index)
-            direction = np.random.randn(self.model.len(), 1)
-            upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
-            lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
-            grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction + md.prox_val * (current_weight - original_weight)
+            grad = self.model.grad(current_weight, sample_feature, sample_label) + md.prox_val * (current_weight - original_weight)
+            # grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction + md.prox_val * (current_weight - original_weight)
             self.total_grad += 2 * md.batch_size
             eta = self.decay(md.eta, self.global_round)
             current_weight -= eta * grad

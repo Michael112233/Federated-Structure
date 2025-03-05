@@ -1,13 +1,11 @@
 import random
 import copy
-import time
 
-import numpy as np
-import meta_data as md
-from .BaseAlgorithm import BaseAlgorithm
-from util import judge_whether_print
+from algorithms.BaseAlgorithm import BaseAlgorithm
+from src import meta_data as md
+from src.util import judge_whether_print
 
-class FedAvg_SGD_ZO(BaseAlgorithm):
+class FedAvg_SGD(BaseAlgorithm):
     def __init__(self, model, dataset, decay):
         super().__init__(model, dataset, decay)
 
@@ -32,10 +30,7 @@ class FedAvg_SGD_ZO(BaseAlgorithm):
     def update_client(self, current_weight, chosen_index):
         for i in range(md.local_iter):
             sample_feature, sample_label = self.dataset.sample(chosen_index)
-            direction = np.random.randn(self.model.len(), 1)
-            upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
-            lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
-            grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
+            grad = self.model.grad(current_weight, sample_feature, sample_label)
             self.total_grad += 2 * md.batch_size
             eta = self.decay(md.eta, self.global_round)
             current_weight -= eta * grad

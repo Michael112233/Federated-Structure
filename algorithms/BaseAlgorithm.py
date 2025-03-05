@@ -1,4 +1,4 @@
-import meta_data as md
+from src import meta_data as md
 import numpy as np
 
 import time
