@@ -33,11 +33,11 @@ class Scaffold(BaseAlgorithm):
                 self.save_info(start_time)
 
     def get_grad(self, current_weight, sample_feature, sample_label):
-        # direction = np.random.randn(self.model.len(), 1)
-        # upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
-        # lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
-        # grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
-        grad = self.model.grad(current_weight, sample_feature, sample_label)
+        direction = np.random.randn(self.model.len(), 1)
+        upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
+        lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
+        grad = (upper_val - lower_val) * (1 / (2 * md.radius)) * direction
+        # grad = self.model.grad(current_weight, sample_feature, sample_label)
         return grad
 
     def update_client(self, client_index, current_weight, chosen_index):

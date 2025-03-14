@@ -1,6 +1,8 @@
 import random
 import copy
 
+import numpy as np
+
 from algorithms.BaseAlgorithm import BaseAlgorithm
 from src import meta_data as md
 from src.util import judge_whether_print
@@ -30,7 +32,10 @@ class FedAvg_SGD(BaseAlgorithm):
     def update_client(self, current_weight, chosen_index):
         for i in range(md.local_iter):
             sample_feature, sample_label = self.dataset.sample(chosen_index)
-            grad = self.model.grad(current_weight, sample_feature, sample_label)
+            direction = np.random.randn(self.model.len(), 1)
+            upper_val = self.model.loss((current_weight + md.radius * direction), sample_feature, sample_label)
+            lower_val = self.model.loss((current_weight - md.radius * direction), sample_feature, sample_label)
+            grad = (upper_val - lower_val) * direction / (2 * md.radius)
             self.total_grad += 2 * md.batch_size
             eta = self.decay(md.eta, self.global_round)
             current_weight -= eta * grad

@@ -23,10 +23,14 @@ class BaseAlgorithm:
             self.client_index.append(i)
 
     def init_weight(self):
-        if self.model.modelName() == 'svm':
-            return np.ones(self.model.len()).reshape(-1, 1)
+        model_len = self.model.len()
+        if self.model.modelName() == 'neural':
+            # model_len = md.hidden_dim * (self.model.len() + 1)
+            return np.zeros(model_len).reshape(-1, 1)
+        elif self.model.modelName() == 'svm':
+            return np.ones(model_len).reshape(-1, 1)
         else:
-            return np.zeros(self.model.len()).reshape(-1, 1)
+            return np.zeros(model_len).reshape(-1, 1)
 
     def get_loss(self):
         feature, label = self.dataset.get_train_dataset()
