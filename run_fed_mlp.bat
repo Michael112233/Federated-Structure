@@ -1,0 +1,12 @@
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedAvg --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedAvg --iid=1 --lr=1 --cluster=2
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedProx --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedProx --iid=1 --lr=1 --cluster=2
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedCC --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=mlp --dataset=cifar --epochs=30 --algorithm=FedCC --iid=1 --lr=1 --cluster=2
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedAvg --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedAvg --iid=1 --lr=0.1 --cluster=2
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedProx --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedProx --iid=1 --lr=0.1 --cluster=2
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedCC --iid=0 --lr=0.1 --cluster=4
+python src/federated_main.py --model=lr --dataset=cifar --epochs=30 --algorithm=FedCC --iid=1 --lr=0.1 --cluster=2
